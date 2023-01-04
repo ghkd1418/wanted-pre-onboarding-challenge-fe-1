@@ -57,8 +57,6 @@ const SignUpForm = () => {
       <button onClick={fetchLogin} disabled={isValid}>
         회원가입
       </button>
-      email: {email}
-      pw: {password}
     </>
   );
 };
