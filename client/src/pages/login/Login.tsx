@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-interface inputType {
-  email: string;
-  password: string;
-}
+export const Login = () => {
+  interface inputType {
+    email: string;
+    password: string;
+  }
 
-export const SignUp = () => {
   const [isValid, setIsvalid] = useState<boolean>(true);
   const [inputs, setInputs] = useState<inputType>({
     email: "",
@@ -16,11 +16,12 @@ export const SignUp = () => {
 
   const fetchSignUp = () => {
     axios
-      .post("http://localhost:8080/users/create", {
-        email: inputs.email, // FIXME:리펙토링하기
-        password: inputs.password,
+      .post("http://localhost:8080/users/login", {
+        email,
+        password,
       })
       .then((res) => {
+        console.log(res);
         localStorage.setItem("token", res.data.token);
         alert(res.data.message);
       })
@@ -55,7 +56,7 @@ export const SignUp = () => {
         onChange={onChange}
       />
       <button onClick={fetchSignUp} disabled={isValid}>
-        회원가입
+        로그인
       </button>
     </>
   );
