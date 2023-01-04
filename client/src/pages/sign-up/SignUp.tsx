@@ -6,13 +6,14 @@ interface inputType {
   password: string;
 }
 
-const SignUpForm = () => {
+export const SignUp = () => {
   const [isValid, setIsvalid] = useState<boolean>(true);
   const [inputs, setInputs] = useState<inputType>({
     email: "",
     password: "",
   });
   const { email, password } = inputs;
+
   const fetchLogin = () => {
     axios
       .post("http://localhost:8080/users/create", {
@@ -20,20 +21,19 @@ const SignUpForm = () => {
         password: inputs.password,
       })
       .then((res) => {
-        console.log(res.data);
+        localStorage.setItem("token", res.data.token);
+        alert(res.data.message);
       })
       .catch((err) => {
         alert(err.response.data.details);
       });
   };
   const checkInput = () => {
-    console.log("실행됨");
     const regex = /[\w\-\.]+\@[\w\-\.]+/;
     if (password.length >= 8 && regex.test(email)) {
       setIsvalid(false);
     } else setIsvalid(true);
   };
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setInputs({
@@ -57,14 +57,6 @@ const SignUpForm = () => {
       <button onClick={fetchLogin} disabled={isValid}>
         회원가입
       </button>
-    </>
-  );
-};
-
-export const SignUp = () => {
-  return (
-    <>
-      <SignUpForm />
     </>
   );
 };
