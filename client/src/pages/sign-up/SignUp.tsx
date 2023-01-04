@@ -17,8 +17,8 @@ export const SignUp = () => {
   const fetchSignUp = () => {
     axios
       .post("http://localhost:8080/users/create", {
-        email: inputs.email, // FIXME:리펙토링하기
-        password: inputs.password,
+        email,
+        password,
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
