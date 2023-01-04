@@ -15,12 +15,15 @@ const SignUpForm = () => {
   const { email, password } = inputs;
   const fetchLogin = () => {
     axios
-      .post("http://localhost:8080/users/login", {
+      .post("http://localhost:8080/users/create", {
         email: inputs.email,
         password: inputs.password,
       })
       .then((res) => {
         console.log(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data.details);
       });
   };
   const checkInput = () => {
