@@ -1,7 +1,14 @@
-export const List = ({ todos }: any) => {
-  //TODO: todos 없을 수도 있으니 예외처리해주기
+export const List = ({ todos, onDetail }: any) => {
+  const clickHandler = (todoId: string) => {
+    onDetail(todoId);
+  };
+
   const todoList = todos?.map((todo: any) => {
-    return <li key={todo.id}>{todo.title}</li>;
+    return (
+      <li key={todo.id} onClick={() => clickHandler(todo.id)}>
+        {todo.title}
+      </li>
+    );
   });
   return (
     <nav>
