@@ -9,9 +9,9 @@ import { CreateTodo } from "./CreateTodo";
 */
 
 const List = ({ todos }: any) => {
-  console.log(todos);
   //TODO: todos 없을 수도 있으니 예외처리해주기
-  const todoList = todos.data?.map((todo: any) => {
+  const todoList = todos?.map((todo: any) => {
+    console.log(todo);
     return <li key={todo.id}>{todo.title}</li>;
   });
   return (
@@ -25,8 +25,7 @@ export const Todo = () => {
   const token = localStorage.getItem("token");
   const [todos, setTodos] = useState<string[]>([]);
 
-  console.log(token);
-
+  console.log(todos);
   const createHandler = (title: string, content: string) => {
     axios
       .post(
@@ -42,8 +41,9 @@ export const Todo = () => {
         }
       )
       .then((res) => {
-        console.log(res);
-        setTodos((preTodo) => [...preTodo, res.data]);
+        setTodos((preTodo: any) => {
+          return [...preTodo, res.data.data];
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +58,7 @@ export const Todo = () => {
         },
       })
       .then((res) => {
-        setTodos(res.data);
+        setTodos(res.data.data);
       })
       .catch((err) => {
         console.log(err);
