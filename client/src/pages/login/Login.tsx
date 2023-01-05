@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   interface inputType {
     email: string;
     password: string;
@@ -23,7 +25,6 @@ export const Login = () => {
         password,
       })
       .then((res) => {
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         alert(res.data.message);
         navigate("/");
@@ -46,6 +47,10 @@ export const Login = () => {
     });
   };
   useEffect(() => {
+    if (token) {
+      alert("이미 로그인 되어 있습니다.");
+      if (token) navigate("/");
+    }
     checkInput();
   }, [inputs]);
 
