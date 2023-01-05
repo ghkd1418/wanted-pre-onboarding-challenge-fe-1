@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export const Login = () => {
+  const navigate = useNavigate();
   interface inputType {
     email: string;
     password: string;
@@ -24,6 +26,7 @@ export const Login = () => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
         alert(res.data.message);
+        navigate("/");
       })
       .catch((err) => {
         alert(err.response.data.details);

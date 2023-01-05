@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
 
@@ -12,6 +13,7 @@ import { List } from "./List";
 export const Todo = () => {
   const token = localStorage.getItem("token");
   const [todos, setTodos] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const createHandler = (title: string, content: string) => {
     axios
@@ -34,6 +36,8 @@ export const Todo = () => {
       })
       .catch((err) => {
         console.log(err);
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/auth/login");
       });
   };
 
@@ -45,10 +49,14 @@ export const Todo = () => {
         },
       })
       .then((res) => {
+        console.log(res);
         setTodos(res.data.data);
+        if (!token) throw new Error();
       })
       .catch((err) => {
         console.log(err);
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/auth/login");
       });
   };
   useEffect(() => {
