@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CreateTodo } from "./CreateTodo";
+import { List } from "./List";
 
 /*
 컴포넌트 설계 방법
@@ -8,24 +9,10 @@ import { CreateTodo } from "./CreateTodo";
 2. state를 각 컴포넌트 프롭스로 전달하여 변경해주기
 */
 
-const List = ({ todos }: any) => {
-  //TODO: todos 없을 수도 있으니 예외처리해주기
-  const todoList = todos?.map((todo: any) => {
-    console.log(todo);
-    return <li key={todo.id}>{todo.title}</li>;
-  });
-  return (
-    <nav>
-      <ul>{todoList}</ul>
-    </nav>
-  );
-};
-
 export const Todo = () => {
   const token = localStorage.getItem("token");
   const [todos, setTodos] = useState<string[]>([]);
 
-  console.log(todos);
   const createHandler = (title: string, content: string) => {
     axios
       .post(
