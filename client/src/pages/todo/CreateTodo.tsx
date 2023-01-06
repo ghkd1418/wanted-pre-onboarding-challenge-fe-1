@@ -1,5 +1,5 @@
 export const CreateTodo = ({ onCreate }: any) => {
-  const submitHandler = (e: any) => {
+  const submitHandler = (e: any): void => {
     e.preventDefault();
 
     const title = e.target.title.value;

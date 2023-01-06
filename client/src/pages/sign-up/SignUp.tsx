@@ -16,7 +16,7 @@ export const SignUp = () => {
 
   const fetchSignUp = () => {
     axios
-      .post("http://localhost:8080/users/create", {
+      .post("/api/users/create", {
         email,
         password,
       })
