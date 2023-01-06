@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
 import { Detail } from "./Detail";
@@ -14,8 +14,6 @@ import { Detail } from "./Detail";
 export const Todo = () => {
   const token = localStorage.getItem("token");
   const [todos, setTodos] = useState<string[]>([]);
-  const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
   const navigate = useNavigate();
 
   const createHandler = (title: string, content: string) => {
@@ -66,32 +64,13 @@ export const Todo = () => {
     getTodo();
   }, []);
 
-  const detailHandler = (todoId: string) => {
-    console.log(todoId);
-    axios
-      .get(`http://localhost:8080/todos/${todoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (!token) throw new Error();
-        setTitle(res.data.data.title);
-        setContent(res.data.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("로그인이 필요한 서비스입니다.");
-        navigate("/auth/login");
-      });
-  };
-
   return (
     <>
       <h1>✏️TODO LIST</h1>
-      <List todos={todos} onDetail={detailHandler} />
+      <List todos={todos} />
       <CreateTodo onCreate={createHandler} />
-      <Detail title={title} content={content} />
+      <Outlet />
+      {/* <Detail title={title} content={content} /> */}
     </>
   );
 };
