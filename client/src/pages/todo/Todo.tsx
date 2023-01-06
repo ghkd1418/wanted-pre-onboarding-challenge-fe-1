@@ -4,12 +4,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
 import { Header } from "./Header";
-
-/*
-컴포넌트 설계 방법
-1. state를 todo에 하나만 주고 프롭스로 전달하고 이벤트를 내려주기
-2. state를 각 컴포넌트 프롭스로 전달하여 변경해주기
-*/
+import { LogOut } from "./LogOut";
 
 export const Todo = () => {
   const token = localStorage.getItem("token");
@@ -65,6 +60,7 @@ export const Todo = () => {
 
   return (
     <>
+      <LogOut />
       <Header />
       <List todos={todos} />
       <CreateTodo onCreate={createHandler} />
