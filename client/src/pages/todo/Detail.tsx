@@ -16,7 +16,7 @@ export const Detail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/todos/${todoId}`, {
+      .get(`/api/todos/${todoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ export const Detail = () => {
   const updateHandler = (title: string, content: string) => {
     axios
       .put(
-        `http://localhost:8080/todos/${todoId}`,
+        `/api/todos/${todoId}`,
         {
           title,
           content,
@@ -64,7 +64,7 @@ export const Detail = () => {
 
   const deleteHandler = () => {
     axios
-      .delete(`http://localhost:8080/todos/${todoId}`, {
+      .delete(`/api/todos/${todoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

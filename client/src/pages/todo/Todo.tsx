@@ -15,7 +15,7 @@ export const Todo = () => {
   const createHandler = (title: string, content: string) => {
     axios
       .post(
-        "http://localhost:8080/todos",
+        "/api/todos",
         {
           title,
           content,
@@ -40,7 +40,7 @@ export const Todo = () => {
 
   const getTodo = () => {
     axios
-      .get("http://localhost:8080/todos", {
+      .get("/api/todos", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
