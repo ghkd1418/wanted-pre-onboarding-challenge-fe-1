@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
-import { Detail } from "./Detail";
+import { Header } from "./Header";
 
 /*
 컴포넌트 설계 방법
@@ -32,6 +32,7 @@ export const Todo = () => {
       )
       .then((res) => {
         setTodos((preTodo: any) => {
+          //input 초기화 해주기
           return [...preTodo, res.data.data];
         });
       })
@@ -66,11 +67,10 @@ export const Todo = () => {
 
   return (
     <>
-      <h1>✏️TODO LIST</h1>
+      <Header />
       <List todos={todos} />
       <CreateTodo onCreate={createHandler} />
       <Outlet />
-      {/* <Detail title={title} content={content} /> */}
     </>
   );
 };
