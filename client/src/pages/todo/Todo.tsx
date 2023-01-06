@@ -70,7 +70,7 @@ export const Todo = () => {
       <Header />
       <List todos={todos} />
       <CreateTodo onCreate={createHandler} />
-      <Outlet />
+      <Outlet context={[todos, setTodos]} />
     </>
   );
 };

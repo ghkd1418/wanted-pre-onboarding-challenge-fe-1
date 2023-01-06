@@ -1,8 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { UpdateTodo } from "./UpdateTodo";
+import { useOutletContext } from "react-router-dom";
 
 export const Detail = () => {
+  const [todos, setTodos] = useOutletContext<any[]>();
   const [title, setTitle] = useState(null);
   const [content, setContent] = useState(null);
   const params = useParams();
@@ -29,10 +32,45 @@ export const Detail = () => {
       });
   });
 
+  const updateHandler = (title: string, content: string) => {
+    axios
+      .put(
+        `http://localhost:8080/todos/${todoId}`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (!token) throw new Error();
+        console.log(res);
+        console.log(todos);
+        setTodos((preTodos: any) => {
+          const index = preTodos.findIndex((x: any) => todoId === x.id);
+          preTodos[index].title = title;
+          preTodos[index].content = content;
+          return [...preTodos];
+        });
+        // setTitle(res.data.data.title);
+        // setContent(res.data.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/auth/login");
+      });
+  };
+
   return (
     <article>
       <h3>{title}</h3>
       <p>{content}</p>
+      <UpdateTodo onUpdate={updateHandler} title={title} content={content} />
     </article>
   );
 };
