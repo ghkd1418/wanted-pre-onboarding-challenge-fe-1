@@ -5,6 +5,7 @@ import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
 import { Header } from "./Header";
 import { LogOut } from "./LogOut";
+import { headers } from "../../utils/apiConfig";
 
 export const Todo = () => {
   const token = localStorage.getItem("token");
@@ -13,19 +14,9 @@ export const Todo = () => {
   const params = useParams();
 
   const createHandler = (title: string, content: string) => {
+    const data = { title, content };
     axios
-      .post(
-        "/api/todos",
-        {
-          title,
-          content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("/api/todos", data, headers)
       .then((res) => {
         setTodos((preTodo: any) => {
           //input 초기화 해주기

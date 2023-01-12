@@ -4,6 +4,7 @@ import axios from "axios";
 import { UpdateTodo } from "./UpdateTodo";
 import { useOutletContext } from "react-router-dom";
 import { DeleteTodo } from "./DeleteTodo";
+import { headers } from "../../utils/apiConfig";
 
 export const Detail = () => {
   const [todos, setTodos] = useOutletContext<any[]>();
@@ -16,11 +17,7 @@ export const Detail = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/todos/${todoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`/api/todos/${todoId}`, headers)
       .then((res) => {
         if (!token) throw new Error();
         setTitle(res.data.data.title);
@@ -33,19 +30,9 @@ export const Detail = () => {
   });
 
   const updateHandler = (title: string, content: string) => {
+    const data = { title, content };
     axios
-      .put(
-        `/api/todos/${todoId}`,
-        {
-          title,
-          content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .put(`/api/todos/${todoId}`, data, headers)
       .then((res) => {
         if (!token) throw new Error();
         setTodos((preTodos: any) => {
@@ -56,7 +43,6 @@ export const Detail = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
         alert("로그인이 필요한 서비스입니다.");
         navigate("/auth/login");
       });
@@ -64,11 +50,7 @@ export const Detail = () => {
 
   const deleteHandler = () => {
     axios
-      .delete(`/api/todos/${todoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(`/api/todos/${todoId}`, headers)
       .then((res) => {
         if (!token) throw new Error();
         navigate("/");
