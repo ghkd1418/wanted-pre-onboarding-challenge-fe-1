@@ -18,27 +18,24 @@ export const Login = () => {
   });
   const { email, password } = inputs;
 
-  const fetchSignUp = () => {
-    axios
-      .post("/api/users/login", {
-        email,
-        password,
-      })
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        alert(res.data.message);
-        navigate("/");
-      })
-      .catch((err) => {
-        alert(err.response.data.details);
-      });
+  const fetchSignUp = async () => {
+    try {
+      const res = await axios.post("/api/users/login", { email, password });
+      localStorage.setItem("token", res.data.token);
+      alert(res.data.message);
+      navigate("/");
+    } catch (err: any) {
+      alert(err.response.data.details);
+    }
   };
+
   const checkInput = () => {
     const emailRegex = /[\w\-\.]+\@[\w\-\.]+/;
     if (password.length >= 8 && emailRegex.test(email)) {
       setIsvalid(false);
     } else setIsvalid(true);
   };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setInputs({
@@ -46,6 +43,7 @@ export const Login = () => {
       [name]: value,
     });
   };
+
   useEffect(() => {
     if (token) {
       alert("이미 로그인 되어 있습니다.");

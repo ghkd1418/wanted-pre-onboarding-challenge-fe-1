@@ -13,38 +13,32 @@ export const Todo = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const createHandler = (title: string, content: string) => {
-    const data = { title, content };
-    axios
-      .post("/api/todos", data, headers)
-      .then((res) => {
-        setTodos((preTodo: any) => {
-          //input 초기화 해주기
-          return [...preTodo, res.data.data];
-        });
-      })
-      .catch((err) => {
-        alert("로그인이 필요한 서비스입니다.");
-        navigate("/auth/login");
+  const createHandler = async (title: string, content: string) => {
+    try {
+      const data = { title, content };
+      const res = await axios.post("/api/todos", data, headers);
+
+      setTodos((preTodo: any) => {
+        //input 초기화 해주기
+        return [...preTodo, res.data.data];
       });
+    } catch {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/auth/login");
+    }
   };
 
-  const getTodo = () => {
-    axios
-      .get("/api/todos", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setTodos(res.data.data);
-        if (!token) throw new Error();
-      })
-      .catch((err) => {
-        alert("로그인이 필요한 서비스입니다.");
-        navigate("/auth/login");
-      });
+  const getTodo = async () => {
+    try {
+      const { data } = await axios.get("/api/todos", headers);
+      setTodos(data.data);
+      if (!token) throw new Error();
+    } catch {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/auth/login");
+    }
   };
+
   useEffect(() => {
     getTodo();
   }, [params]);

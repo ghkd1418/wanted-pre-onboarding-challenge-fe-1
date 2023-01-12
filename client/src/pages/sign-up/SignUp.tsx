@@ -14,26 +14,23 @@ export const SignUp = () => {
   });
   const { email, password } = inputs;
 
-  const fetchSignUp = () => {
-    axios
-      .post("/api/users/create", {
-        email,
-        password,
-      })
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        alert(res.data.message);
-      })
-      .catch((err) => {
-        alert(err.response.data.details);
-      });
+  const fetchSignUp = async () => {
+    try {
+      const res = await axios.post("/api/users/create", { email, password });
+      localStorage.setItem("token", res.data.token);
+      alert(res.data.message);
+    } catch (err: any) {
+      alert(err.response.data.details);
+    }
   };
+
   const checkInput = () => {
     const regex = /[\w\-\.]+\@[\w\-\.]+/;
     if (password.length >= 8 && regex.test(email)) {
       setIsvalid(false);
     } else setIsvalid(true);
   };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setInputs({
@@ -41,6 +38,7 @@ export const SignUp = () => {
       [name]: value,
     });
   };
+
   useEffect(() => {
     checkInput();
   }, [inputs]);
