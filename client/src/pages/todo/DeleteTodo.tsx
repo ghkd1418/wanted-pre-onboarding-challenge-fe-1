@@ -1,10 +1,7 @@
 export const DeleteTodo = ({ onDelete }: any) => {
-  const clickHandler = () => {
-    onDelete();
-  };
   return (
     <>
-      <button onClick={clickHandler}>Delete</button>
+      <button onClick={() => onDelete()}>Delete</button>
     </>
   );
 };

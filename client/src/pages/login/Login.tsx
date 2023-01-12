@@ -34,8 +34,8 @@ export const Login = () => {
       });
   };
   const checkInput = () => {
-    const regex = /[\w\-\.]+\@[\w\-\.]+/;
-    if (password.length >= 8 && regex.test(email)) {
+    const emailRegex = /[\w\-\.]+\@[\w\-\.]+/;
+    if (password.length >= 8 && emailRegex.test(email)) {
       setIsvalid(false);
     } else setIsvalid(true);
   };
