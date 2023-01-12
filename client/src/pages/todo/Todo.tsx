@@ -19,7 +19,6 @@ export const Todo = () => {
       const res = await axios.post("/api/todos", data, headers);
 
       setTodos((preTodo: any) => {
-        //input 초기화 해주기
         return [...preTodo, res.data.data];
       });
     } catch {

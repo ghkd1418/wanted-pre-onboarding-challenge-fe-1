@@ -1,3 +1,7 @@
+const resetInput = (e: any) => {
+  e.target.reset();
+};
+
 export const CreateTodo = ({ onCreate }: any) => {
   const submitHandler = (e: any): void => {
     e.preventDefault();
@@ -5,6 +9,7 @@ export const CreateTodo = ({ onCreate }: any) => {
     const title = e.target.title.value;
     const content = e.target.content.value;
     onCreate(title, content);
+    resetInput(e);
   };
 
   return (
