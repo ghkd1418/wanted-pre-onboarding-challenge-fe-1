@@ -1,10 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { UpdateTodo } from "./UpdateTodo";
 import { useOutletContext } from "react-router-dom";
 import { DeleteTodo } from "./DeleteTodo";
-import { headers } from "../../utils/apiConfig";
+import { api } from "../../utils/apiConfig";
 
 export const Detail = () => {
   const [todos, setTodos] = useOutletContext<any[]>();
@@ -17,7 +16,7 @@ export const Detail = () => {
 
   const getTodoDetail = async () => {
     try {
-      const { data } = await axios.get(`/api/todos/${todoId}`, headers);
+      const { data } = await api.get(`/todos/${todoId}`);
       if (!token) throw new Error();
       setTitle(data.data.title);
       setContent(data.data.content);
@@ -34,7 +33,7 @@ export const Detail = () => {
   const updateHandler = async (title: string, content: string) => {
     try {
       const data = { title, content };
-      await axios.put(`/api/todos/${todoId}`, data, headers);
+      await api.put(`/todos/${todoId}`, data);
 
       if (!token) throw new Error();
       setTodos((preTodos: any) => {
@@ -51,7 +50,7 @@ export const Detail = () => {
 
   const deleteHandler = async () => {
     try {
-      await axios.delete(`/api/todos/${todoId}`, headers);
+      await api.delete(`/todos/${todoId}`);
       if (!token) throw new Error();
       navigate("/");
     } catch {

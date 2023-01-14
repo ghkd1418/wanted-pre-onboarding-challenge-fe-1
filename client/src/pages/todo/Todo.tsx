@@ -5,7 +5,7 @@ import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
 import { Header } from "./Header";
 import { LogOut } from "./LogOut";
-import { headers } from "../../utils/apiConfig";
+import { api } from "../../utils/apiConfig";
 
 export const Todo = () => {
   const token = localStorage.getItem("token");
@@ -16,7 +16,7 @@ export const Todo = () => {
   const createHandler = async (title: string, content: string) => {
     try {
       const data = { title, content };
-      const res = await axios.post("/api/todos", data, headers);
+      const res = await api.post("/todos", data);
 
       setTodos((preTodo: any) => {
         return [...preTodo, res.data.data];
@@ -29,7 +29,7 @@ export const Todo = () => {
 
   const getTodo = async () => {
     try {
-      const { data } = await axios.get("/api/todos", headers);
+      const { data } = await api.get("/todos");
       setTodos(data.data);
       if (!token) throw new Error();
     } catch {

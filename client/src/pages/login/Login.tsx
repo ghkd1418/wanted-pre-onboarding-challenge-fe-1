@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { api } from "../../utils/apiConfig";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const Login = () => {
 
   const fetchSignUp = async () => {
     try {
-      const res = await axios.post("/api/users/login", { email, password });
+      const res = await api.post("/users/login", { email, password });
       localStorage.setItem("token", res.data.token);
       alert(res.data.message);
       navigate("/");

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { api } from "../../utils/apiConfig";
 
 interface inputType {
   email: string;
@@ -16,7 +16,7 @@ export const SignUp = () => {
 
   const fetchSignUp = async () => {
     try {
-      const res = await axios.post("/api/users/create", { email, password });
+      const res = await api.post("/users/create", { email, password });
       localStorage.setItem("token", res.data.token);
       alert(res.data.message);
     } catch (err: any) {
