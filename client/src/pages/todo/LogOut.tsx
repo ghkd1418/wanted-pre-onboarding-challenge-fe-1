@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ERROR } from "../../utils/constant";
 
 export const LogOut = () => {
   const navigate = useNavigate();
@@ -6,8 +7,8 @@ export const LogOut = () => {
     <>
       <button
         onClick={() => {
-          localStorage.removeItem("token");
-          alert("로그인 후 이용 가능합니다.");
+          localStorage.getItem("token");
+          alert(ERROR.LOGIN_REQUIRED_MESSAGE);
           navigate("/auth/login");
         }}
       >

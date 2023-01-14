@@ -4,6 +4,8 @@ import { UpdateTodo } from "./UpdateTodo";
 import { useOutletContext } from "react-router-dom";
 import { DeleteTodo } from "./DeleteTodo";
 import { api } from "../../utils/apiConfig";
+import { ERROR } from "../../utils/constant";
+import { checkToken } from "../../utils/\bcheck";
 
 export const Detail = () => {
   const [todos, setTodos] = useOutletContext<any[]>();
@@ -12,16 +14,15 @@ export const Detail = () => {
   const params = useParams();
   const todoId = params.id;
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const getTodoDetail = async () => {
     try {
       const { data } = await api.get(`/todos/${todoId}`);
-      if (!token) throw new Error();
+      checkToken();
       setTitle(data.data.title);
       setContent(data.data.content);
     } catch {
-      alert("로그인이 필요한 서비스입니다.");
+      alert(ERROR.LOGIN_REQUIRED_MESSAGE);
       navigate("/auth/login");
     }
   };
@@ -35,7 +36,7 @@ export const Detail = () => {
       const data = { title, content };
       await api.put(`/todos/${todoId}`, data);
 
-      if (!token) throw new Error();
+      checkToken();
       setTodos((preTodos: any) => {
         const index = preTodos.findIndex((x: any) => todoId === x.id);
         preTodos[index].title = title;
@@ -43,7 +44,7 @@ export const Detail = () => {
         return [...preTodos];
       });
     } catch {
-      alert("로그인이 필요한 서비스입니다.");
+      alert(ERROR.LOGIN_REQUIRED_MESSAGE);
       navigate("/auth/login");
     }
   };
@@ -51,10 +52,10 @@ export const Detail = () => {
   const deleteHandler = async () => {
     try {
       await api.delete(`/todos/${todoId}`);
-      if (!token) throw new Error();
+      checkToken();
       navigate("/");
     } catch {
-      alert("로그인이 필요한 서비스입니다.");
+      alert(ERROR.LOGIN_REQUIRED_MESSAGE);
       navigate("/auth/login");
     }
   };

@@ -1,6 +1,4 @@
-const resetInput = (e: any) => {
-  e.target.reset();
-};
+import { resetInput } from "../../utils/util";
 
 export const CreateTodo = ({ onCreate }: any) => {
   const submitHandler = (e: any): void => {

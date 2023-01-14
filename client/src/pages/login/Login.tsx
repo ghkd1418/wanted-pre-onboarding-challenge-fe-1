@@ -20,7 +20,10 @@ export const Login = () => {
 
   const fetchSignUp = async () => {
     try {
-      const res = await api.post("/users/login", { email, password });
+      const res = await api.post("/users/login", {
+        email,
+        password,
+      });
       localStorage.setItem("token", res.data.token);
       alert(res.data.message);
       navigate("/");
