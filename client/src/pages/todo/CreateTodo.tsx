@@ -1,4 +1,5 @@
 import { resetInput } from "../../utils/util";
+import { isValidInput } from "./isValidInput";
 
 export const CreateTodo = ({ onCreate }: any) => {
   const submitHandler = (e: any): void => {
@@ -6,7 +7,8 @@ export const CreateTodo = ({ onCreate }: any) => {
 
     const title = e.target.title.value;
     const content = e.target.content.value;
-    onCreate(title, content);
+
+    isValidInput(title, content) && onCreate(title, content);
     resetInput(e);
   };
 

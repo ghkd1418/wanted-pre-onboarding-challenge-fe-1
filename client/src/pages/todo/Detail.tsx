@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import { DeleteTodo } from "./DeleteTodo";
 import { api } from "../../utils/apiConfig";
 import { ERROR } from "../../utils/constant";
-import { checkToken } from "../../utils/\bcheck";
+import { checkToken } from "../../utils/check";
 
 export const Detail = () => {
   const [todos, setTodos] = useOutletContext<any[]>();

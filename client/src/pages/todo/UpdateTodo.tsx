@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import { isValidInput } from "./isValidInput";
 
 export const UpdateTodo = ({ onUpdate, title, content }: any) => {
   const navigate = useNavigate();
   const submitHandler = (e: any) => {
     e.preventDefault();
-
     const title = e.target.title.value;
     const content = e.target.content.value;
-    onUpdate(title, content);
+
+    isValidInput(title, content) && onUpdate(title, content);
   };
 
   return (

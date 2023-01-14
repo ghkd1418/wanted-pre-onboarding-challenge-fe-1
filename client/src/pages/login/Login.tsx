@@ -2,23 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../utils/apiConfig";
 
+interface inputType {
+  email: string;
+  password: string;
+}
+
 export const Login = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  interface inputType {
-    email: string;
-    password: string;
-  }
-
-  const [isValid, setIsvalid] = useState<boolean>(true);
+  const [isValid, setIsvalid] = useState(true);
   const [inputs, setInputs] = useState<inputType>({
     email: "",
     password: "",
   });
   const { email, password } = inputs;
 
-  const fetchSignUp = async () => {
+  const fetchLogin = async () => {
     try {
       const res = await api.post("/users/login", {
         email,
@@ -46,7 +46,7 @@ export const Login = () => {
       [name]: value,
     });
   };
-
+  //FIXME: 로그인로직이 실행되면 안됨 상위에서 막아줘야함
   useEffect(() => {
     if (token) {
       alert("이미 로그인 되어 있습니다.");
@@ -64,7 +64,7 @@ export const Login = () => {
         placeholder="password"
         onChange={onChange}
       />
-      <button onClick={fetchSignUp} disabled={isValid}>
+      <button onClick={fetchLogin} disabled={isValid}>
         로그인
       </button>
     </>

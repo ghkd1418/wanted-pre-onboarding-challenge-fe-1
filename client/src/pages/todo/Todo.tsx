@@ -6,7 +6,7 @@ import { Header } from "./Header";
 import { LogOut } from "./LogOut";
 import { api } from "../../utils/apiConfig";
 import { ERROR } from "../../utils/constant";
-import { checkToken } from "../../utils/\bcheck";
+import { checkToken } from "../../utils/check";
 
 export const Todo = () => {
   const [todos, setTodos] = useState<string[]>([]);
