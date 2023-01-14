@@ -11,3 +11,7 @@ client
 
 server 
 >yart start 
+
+
+### 리펙토링
+#### [axios.create 생성](https://github.com/ghkd1418/wanted-pre-onboarding-challenge-fe-1/commit/fedd702770628495d400f03af1d62af91e38c697)
