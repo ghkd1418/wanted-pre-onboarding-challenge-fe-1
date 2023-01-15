@@ -1,13 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { isValidInput } from "./isValidInput";
 
-export const UpdateTodo = ({ onUpdate, title, content }: any) => {
+interface UpdateTodoProps {
+  onUpdate: (title: string, content: string) => void;
+  title?: string | null;
+  content?: string | null;
+}
+
+export const UpdateTodo: React.FC<UpdateTodoProps> = ({
+  onUpdate,
+  title,
+  content,
+}: any) => {
   const navigate = useNavigate();
   const submitHandler = (e: any) => {
     e.preventDefault();
     const title = e.target.title.value;
     const content = e.target.content.value;
-
     isValidInput(title, content) && onUpdate(title, content);
   };
 

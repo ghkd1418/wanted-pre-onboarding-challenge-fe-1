@@ -7,7 +7,7 @@ export const LogOut = () => {
     <>
       <button
         onClick={() => {
-          localStorage.getItem("token");
+          localStorage.removeItem("token");
           alert(ERROR.LOGIN_REQUIRED_MESSAGE);
           navigate("/auth/login");
         }}

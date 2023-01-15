@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-
-import { SignUp } from "./pages/sign-up/SignUp";
-import { Login } from "./pages/login/Login";
+// import { SignUp } from "./pages/sign-up/SignUp";
+// import { Login } from "./pages/login/Login";
 import { Todo } from "./pages/todo/Todo";
 import { Detail } from "./pages/todo/Detail";
+import { Auth } from "./pages/auth/Auth";
 
+//TODO: suspense 적용해보기
 function App() {
   return (
     <div className="App">
@@ -12,8 +13,7 @@ function App() {
         <Route path="/" element={<Todo />}>
           <Route path=":id" element={<Detail />} />
         </Route>
-        <Route path="/auth" element={<SignUp />} />
-        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/:state" element={<Auth />} />
       </Routes>
     </div>
   );
