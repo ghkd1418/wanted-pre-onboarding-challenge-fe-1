@@ -11,7 +11,7 @@ export const UpdateTodo: React.FC<UpdateTodoProps> = ({
   onUpdate,
   title,
   content,
-}: any) => {
+}) => {
   const navigate = useNavigate();
   const submitHandler = (e: any) => {
     e.preventDefault();

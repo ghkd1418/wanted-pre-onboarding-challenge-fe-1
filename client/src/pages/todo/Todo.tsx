@@ -8,8 +8,16 @@ import { api } from "../../utils/apiConfig";
 import { ERROR } from "../../utils/constant";
 import { checkToken } from "../../utils/check";
 
+interface Todo {
+  title: string;
+  id: string;
+  content: string;
+  createAt: string;
+  updateAt: string;
+}
+
 export const Todo = () => {
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -18,7 +26,7 @@ export const Todo = () => {
       const data = { title, content };
       const res = await api.post("/todos", data);
 
-      setTodos((prevTodos: string[]) => {
+      setTodos((prevTodos: Todo[]) => {
         return [...prevTodos, res.data.data];
       });
     } catch {

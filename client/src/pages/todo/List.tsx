@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-interface todoType {
+interface Todo {
   title: string;
   id: string;
   content: string;
@@ -8,8 +8,12 @@ interface todoType {
   updateAt: string;
 }
 
-export const List = ({ todos }: any) => {
-  const todoList = todos?.map((todo: todoType) => {
+interface ListProps {
+  todos: Todo[];
+}
+
+export const List = ({ todos }: ListProps) => {
+  const todoList = todos?.map((todo: Todo) => {
     return (
       <li key={todo.id}>
         <Link to={`/${todo.id}`}>{todo.title}</Link>

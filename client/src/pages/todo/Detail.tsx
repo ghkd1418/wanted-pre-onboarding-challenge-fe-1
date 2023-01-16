@@ -7,8 +7,16 @@ import { api } from "../../utils/apiConfig";
 import { ERROR } from "../../utils/constant";
 import { checkToken } from "../../utils/check";
 
+interface Todo {
+  title: string;
+  id: string;
+  content: string;
+  createAt: string;
+  updateAt: string;
+}
+
 export const Detail = () => {
-  const [todos, setTodos] = useOutletContext<any[]>();
+  const [_, setTodos] = useOutletContext<any[]>();
   const [title, setTitle] = useState(null);
   const [content, setContent] = useState(null);
   const params = useParams();
@@ -37,7 +45,7 @@ export const Detail = () => {
       await api.put(`/todos/${todoId}`, data);
 
       checkToken();
-      setTodos((preTodos: any) => {
+      setTodos((preTodos: Todo[]) => {
         const index = preTodos.findIndex((x: any) => todoId === x.id);
         preTodos[index].title = title;
         preTodos[index].content = content;

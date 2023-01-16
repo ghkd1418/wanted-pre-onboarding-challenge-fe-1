@@ -1,7 +1,11 @@
 import { resetInput } from "../../utils/util";
 import { isValidInput } from "./isValidInput";
 
-export const CreateTodo = ({ onCreate }: any) => {
+interface CreateProps {
+  onCreate: (title: string, content: string) => void;
+}
+
+export const CreateTodo = ({ onCreate }: CreateProps) => {
   const submitHandler = (e: any): void => {
     e.preventDefault();
 

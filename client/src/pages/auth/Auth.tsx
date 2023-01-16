@@ -16,7 +16,6 @@ export const Auth = () => {
     password: "",
   });
   const { email, password } = inputs;
-
   const { state } = useParams();
 
   const fetchAuth = async (url: string) => {
