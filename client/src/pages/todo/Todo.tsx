@@ -6,7 +6,7 @@ import { Header } from "./Header";
 import { LogOut } from "./LogOut";
 import { api } from "../../utils/apiConfig";
 import { ERROR } from "../../utils/constant";
-import { checkToken } from "../../utils/check";
+import { useTodosQuery } from "../../hooks/queries/todos";
 
 interface Todo {
   title: string;
@@ -35,26 +35,32 @@ export const Todo = () => {
     }
   };
 
-  const getTodo = async () => {
-    try {
-      const { data } = await api.get("/todos");
-      setTodos(data.data);
-      checkToken();
-    } catch {
-      alert(ERROR.LOGIN_REQUIRED_MESSAGE);
-      navigate("/auth/login");
-    }
-  };
+  // const getTodo = async () => {
+  //   try {
+  //     const { data } = await api.get("/todos");
+  //     setTodos(data.data);
+  //     checkToken();
+  //   } catch {
+  //     alert(ERROR.LOGIN_REQUIRED_MESSAGE);
+  //     navigate("/auth/login");
+  //   }
+  // };
+  const { data, error, isLoading } = useTodosQuery(params.id);
 
-  useEffect(() => {
-    getTodo();
-  }, [params]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    alert(ERROR.LOGIN_REQUIRED_MESSAGE);
+    navigate("/auth/login");
+  }
 
   return (
     <>
       <LogOut />
       <Header />
-      <List todos={todos} />
+      <List todos={data} />
       <CreateTodo onCreate={createTodo} />
       <Outlet context={[todos, setTodos]} />
     </>
