@@ -45,11 +45,7 @@ export const Todo = () => {
   //     navigate("/auth/login");
   //   }
   // };
-  const { data, error, isLoading } = useTodosQuery(params.id);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const { data, error } = useTodosQuery(params.id);
 
   if (error) {
     alert(ERROR.LOGIN_REQUIRED_MESSAGE);
