@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { Todo } from "./pages/todo/Todo";
 import { Detail } from "./pages/todo/Detail";
 import { Auth } from "./pages/auth/Auth";
-import { checkToken } from "./utils/check";
 import { Suspense } from "react";
 import { Loading } from "./pages/Loading";
 

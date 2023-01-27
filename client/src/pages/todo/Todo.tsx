@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";
@@ -35,22 +35,7 @@ export const Todo = () => {
     }
   };
 
-  // const getTodo = async () => {
-  //   try {
-  //     const { data } = await api.get("/todos");
-  //     setTodos(data.data);
-  //     checkToken();
-  //   } catch {
-  //     alert(ERROR.LOGIN_REQUIRED_MESSAGE);
-  //     navigate("/auth/login");
-  //   }
-  // };
-  const { data, error } = useTodosQuery(params.id);
-
-  if (error) {
-    alert(ERROR.LOGIN_REQUIRED_MESSAGE);
-    navigate("/auth/login");
-  }
+  const { data } = useTodosQuery(params.id);
 
   return (
     <>
