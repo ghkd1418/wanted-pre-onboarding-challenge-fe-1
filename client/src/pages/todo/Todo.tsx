@@ -34,14 +34,8 @@ export const Todo = () => {
       navigate("/auth/login");
     }
   };
-  //FIXME: 두 번 랜더링 된 이유 = 리엑트 쿼리떄문에...
 
   const { data } = useTodosQuery(params.id);
-
-  // useEffect(() => {
-  //   console.log("useefect");
-  //   // throw new Error("유즈이펙트에러");
-  // }, []);
 
   return (
     <>
@@ -50,7 +44,6 @@ export const Todo = () => {
       <List todos={data} />
       <CreateTodo onCreate={createTodo} />
       <Outlet context={[todos, setTodos]} />
-      {console.log("랜더링")}
     </>
   );
 };

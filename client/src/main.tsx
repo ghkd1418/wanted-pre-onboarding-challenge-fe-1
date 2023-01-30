@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Toaster } from "react-hot-toast";
-import ErrorBoundary from "./common/error-boundary";
 
 const queryClient = new QueryClient({
   defaultOptions: {

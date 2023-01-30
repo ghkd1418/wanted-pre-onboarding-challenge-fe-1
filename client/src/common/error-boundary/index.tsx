@@ -1,5 +1,6 @@
 import React from "react";
 import { ERROR } from "../../utils/constant";
+import { toast } from "react-hot-toast";
 
 interface ErrorBoundaryProps {
   fallback: React.ReactNode;
@@ -20,15 +21,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.dir(error, errorInfo);
 
-    if (error.message === "유즈이펙트에러") {
-      // Move user to auth page
-      alert("didcatch");
+    if (error.message === "require token") {
+      toast.error(ERROR.LOGIN_REQUIRED_MESSAGE);
     } else {
       // Log error to a reporting service
       console.log(error, errorInfo);
-    }
-    if (error.message === "토큰 x") {
-      alert("랜더에러");
     }
   }
 
@@ -36,15 +33,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     const { hasError } = this.state;
     const { fallback, children } = this.props;
 
-    // if (!localStorage.getItem("token")) {
-    // alert(ERROR.LOGIN_REQUIRED_MESSAGE);
-    // return fallback;
-    // }
-
     if (hasError) {
       return fallback;
     }
-    // debugger;
+
     return children;
   }
 }
