@@ -4,13 +4,14 @@ import { Detail } from "./pages/todo/Detail";
 import { Auth } from "./pages/auth/Auth";
 import { Suspense } from "react";
 import { Loading } from "./pages/Loading";
+import { TodoList } from "./pages/todo/index";
 
 function App() {
   return (
     <div className="App">
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path="/" element={<Todo />}>
+          <Route path="/" element={<TodoList />}>
             <Route path=":id" element={<Detail />} />
           </Route>
           <Route path="/auth/:state" element={<Auth />} />

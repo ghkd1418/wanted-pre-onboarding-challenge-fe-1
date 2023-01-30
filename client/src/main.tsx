@@ -12,6 +12,7 @@ const queryClient = new QueryClient({
     queries: {
       retry: 0,
       useErrorBoundary: true,
+      notifyOnChangeProps: "tracked",
       suspense: true,
     },
     mutations: {
@@ -21,15 +22,13 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <ErrorBoundary fallback={<>애러발생</>}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={true} />
-          <App />
-          <Toaster />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </React.StrictMode>
-  </ErrorBoundary>
+  <React.StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={true} />
+        <App />
+        <Toaster />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
