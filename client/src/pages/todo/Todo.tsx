@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { CreateTodo } from "./CreateTodo";
 import { List } from "./List";

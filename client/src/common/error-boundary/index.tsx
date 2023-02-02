@@ -22,7 +22,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     console.dir(error, errorInfo);
 
     if (error.message === "require token") {
-      toast.error(ERROR.LOGIN_REQUIRED_MESSAGE);
+      alert(ERROR.LOGIN_REQUIRED_MESSAGE);
+      window.location.href = "/auth/login";
     } else {
       // Log error to a reporting service
       console.log(error, errorInfo);
